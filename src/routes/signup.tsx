@@ -5,7 +5,7 @@ import { z } from 'zod'
 const SignupSchema = z
   .object({
     name: z.string().min(2, 'Enter your full name'),
-    email: z.string().email('Enter a valid email'),
+    email: z.email('Enter a valid email'),
     password: z.string().min(8, 'Password must be at least 8 characters'),
     confirmPassword: z.string().min(8, 'Confirm your password'),
   })
@@ -35,7 +35,7 @@ function SignUp() {
         result.error.issues.map((issue) => [issue.path[0], issue.message]),
       )
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     setSubmitted(true)
 

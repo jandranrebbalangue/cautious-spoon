@@ -9,8 +9,9 @@ const SearchSchema = z.object({
 
 export const Route = createFileRoute('/')({
   validateSearch: SearchSchema,
-  loader: ({ context, search }) => {
-    return context.queryClient.ensureQueryData(todosQueryOptions(search.limit))
+  loaderDeps: ({ search }) => SearchSchema.parse(search ?? {}),
+  loader: ({ context, deps }) => {
+    return context.queryClient.ensureQueryData(todosQueryOptions(deps.limit))
   },
   component: Home,
 })
